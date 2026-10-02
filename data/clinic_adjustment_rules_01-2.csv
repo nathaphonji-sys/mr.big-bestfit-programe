@@ -1,0 +1,18 @@
+id,rule_id,active,priority,sleep_position_code,main_problem,current_pillow_problem,shoulder_type,mattress_feel,message_type,clinical_note,promote_product,addon_product_1,addon_product_2,addon_product_3,addon_reason
+1,CL001,t,10,P2,any,any,wide,any,guidance,ลูกค้านอนตะแคงและมีช่วงไหล่กว้าง ควรเช็กการเติมช่องว่างระหว่างศีรษะ คอ และไหล่เป็นพิเศษ,Orthocurve,Body Pillow,,,Body Pillow ช่วยประคองลำตัวและช่วยจัดแนวไหล่-สะโพก-เข่าในท่านอนตะแคง
+2,CL002,t,20,P2,any,any,any,firm,guidance,ที่นอนแข็งทำให้ไหล่จมลงได้น้อย อาจต้องการการรองรับช่วงคอและไหล่มากขึ้น,Orthocurve,Body Pillow,,,ใช้ Body Pillow ร่วมได้ในเคสที่ต้องการช่วยจัดแนวลำตัวขณะนอนตะแคง
+3,CL003,t,20,P2,any,any,any,soft,guidance,ที่นอนนุ่มทำให้ไหล่จมลงมากขึ้น ควรระวังหมอนสูงเกินไป,,,,,
+4,CL004,t,10,any,neck_pain,any,any,any,guidance,ควรทดลองหมอนที่รองรับแนวกระดูกคอและสามารถปรับระดับได้,Orthocurve,,,,
+5,CL005,t,10,P2,shoulder_pain,any,any,any,addon,ควรพิจารณาการรองรับช่วงไหล่และลดแรงกดขณะนอนตะแคง,Orthocurve,Body Pillow,,,Orthocurve ช่วยโฟกัสการรองรับคอ-บ่า ส่วน Body Pillow ช่วยจัดแนวลำตัวขณะนอนตะแคง
+6,CL006,t,10,any,reflux,any,any,any,addon,ควรพิจารณา Slopie Pillow หรือหมอนยกลำตัวช่วงบนร่วมด้วย,,Slopie Pillow,Gerd Pillow,,Slopie Pillow และ Gerd Pillow เป็นกลุ่มหมอนยกลำตัวช่วงบน เหมาะกับกรดไหลย้อน แน่นท้อง หรือกินมื้อดึกแล้วนอนไม่สบาย
+7,CL007,t,20,any,any,too_high,any,any,guidance,หมอนเดิมอาจสูงเกินไป ควรทดลองระดับที่ต่ำลง,Orthocurve,,,,
+8,CL008,t,20,any,any,too_low,any,any,guidance,หมอนเดิมอาจต่ำเกินไป ควรทดลองเพิ่มระดับการรองรับ,Orthocurve,,,,
+9,CL009,t,20,any,any,no_neck_support,any,any,guidance,หมอนเดิมอาจไม่รองรับแนวคอเพียงพอ ควรทดลองหมอนที่ช่วยรองรับ curve คอได้ชัดเจนขึ้น,Orthocurve,,,,
+10,CL013,t,1,any,arm_numbness,any,any,any,warning,มีอาการชาแขน ควรให้นักกายภาพหรือผู้เชี่ยวชาญประเมินเพิ่มเติมก่อนสรุปคำแนะนำ,,,,,
+11,CL014,t,15,P1,back_pain,any,any,any,addon,หากนอนหงายแล้วมีอาการตึงหลังล่าง ควรพิจารณาหมอนรองขาเพื่อลดแรงตึงช่วงหลังล่าง,,Leg Pillow,Knee Pillow,,Leg Pillow และ Knee Pillow อยู่ในกลุ่มหมอนรองขา/เข่า ช่วยลดแรงตึงช่วงหลังล่างในท่านอนหงาย
+12,CL015,t,15,P2,back_pain,any,any,any,addon,หากนอนตะแคงแล้วมีอาการหลัง/เอวตึง ควรพิจารณาหมอนช่วยจัดแนวลำตัว,,Body Pillow,Leg Pillow,,Body Pillow ช่วยจัดแนวไหล่-สะโพก-เข่า ส่วน Leg Pillow ช่วยลดการบิดของสะโพกและเข่าขณะนอนตะแคง
+13,CL016,t,15,any,snoring,any,any,any,addon,หากนอนหงายแล้วกรน ควรพิจารณาการปรับท่านอนหรือหมอนยกลำตัวช่วงบนร่วมด้วย,,Slopie Pillow,Gerd Pillow,,หมอนยกลำตัวช่วงบนอาจช่วยให้การนอนหงายสบายขึ้น ควรใช้ร่วมกับการประเมินท่านอน
+14,CL017,t,18,P3,any,any,any,any,warning,ท่านอนคว่ำอาจทำให้คอบิดหรือตึงได้ง่าย ควรระวังหมอนที่สูงเกินไปและประเมินท่านอนร่วมด้วย,New Bodyscale,,,,
+15,CL018,t,25,P2,any,any,narrow,any,guidance,ลูกค้านอนตะแคงแต่ช่วงไหล่ค่อนข้างแคบ ควรระวังหมอนสูงเกินไปและทดลองระดับที่พอดีกับแนวคอ,New Bodyscale,,,,
+16,CL019,t,22,any,any,too_soft,any,any,guidance,หมอนเดิมยุบหรือนิ่มเกินไป อาจทำให้การรองรับคอไม่คงที่ ควรทดลองหมอนที่ปรับระดับหรือคืนตัวได้ดีขึ้น,Orthocurve,,,,
+17,CL020,t,22,any,any,too_firm,any,any,guidance,หมอนเดิมแข็งเกินไปอาจทำให้เกิดแรงกด ควรทดลองรุ่นที่ให้ความสบายมากขึ้นแต่ยังคงการรองรับ,BodyScale,,,,
