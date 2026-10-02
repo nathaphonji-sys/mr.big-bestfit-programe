@@ -22,5 +22,15 @@
     "api/sheets.ts": {
       "maxDuration": 20
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/admin",
+      "destination": "/"
+    },
+    {
+      "source": "/admin/",
+      "destination": "/"
+    }
+  ]
 }

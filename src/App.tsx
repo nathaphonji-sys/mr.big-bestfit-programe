@@ -2,11 +2,13 @@ import { useMemo, useRef, useState } from 'react'
 import Results from './components/Results'
 import AssessmentForm from './components/AssessmentForm'
 import BrandLogo from './components/BrandLogo'
+import AdminTools from './components/AdminTools'
+import { isAdminLocation } from './utils/appMode'
 import { assessmentContent } from './config/assessmentContent'
 import { loadBestFitData, type DataLoadResult } from './services/googleSheets'
 import { calculate, emptyInputs, type Inputs } from './engine'
 
-export default function App({ dataState: initialData, loadData = loadBestFitData }: { dataState: DataLoadResult; loadData?: typeof loadBestFitData }) {
+export default function App({ dataState: initialData, loadData = loadBestFitData, isAdminMode = typeof window !== 'undefined' && isAdminLocation(window.location) }: { dataState: DataLoadResult; loadData?: typeof loadBestFitData; isAdminMode?: boolean }) {
   const [dataState, setDataState] = useState(initialData)
   const [reloading, setReloading] = useState(false)
   const [hasReloaded, setHasReloaded] = useState(false)
@@ -37,12 +39,8 @@ export default function App({ dataState: initialData, loadData = loadBestFitData
     <a className="skip-link" href="#main">ข้ามไปเนื้อหา</a>
     <header className="site-header"><a href="#" onClick={e => { e.preventDefault(); reset() }} className="brand-home" aria-label="MR.BIG เริ่มหน้าแรก"><BrandLogo /></a><div className="header-right"><span className="prototype-badge">PUBLIC PROTOTYPE</span><span className="language">TH</span></div></header>
     <main id="main">
-      <div className={`data-status sheets-status ${dataState.error && !reloading ? 'data-fallback' : ''}`}>
-        <span role={dataState.error && !reloading ? 'alert' : 'status'} aria-live="polite">{reloading ? 'กำลังอัปเดตข้อมูล...' : dataState.error ? 'อัปเดต Google Sheets ไม่สำเร็จ ขณะนี้ใช้ข้อมูลสำรองเดิม กรุณาลองอีกครั้ง' : hasReloaded ? 'อัปเดตข้อมูลล่าสุดแล้ว' : 'โหลดข้อมูลจาก Google Sheets แล้ว'}</span>
-        <button type="button" className="sheets-reload" onClick={() => void reloadData()} disabled={reloading} aria-busy={reloading}>{reloading ? 'กำลังอัปเดตข้อมูล...' : 'อัปเดต Google Sheets'}</button>
-        {dataState.error && !reloading && <details><summary>รายละเอียด</summary>{dataState.error}</details>}
-      </div>
-      {result ? <Results dataState={dataState} result={result} onEdit={() => { setSubmitted(null); focusTitle() }} onReset={reset} /> : <>
+      {isAdminMode && <AdminTools dataState={dataState} reloading={reloading} hasReloaded={hasReloaded} onReload={() => void reloadData()} />}
+      {result ? <Results isAdminMode={isAdminMode} dataState={dataState} result={result} onEdit={() => { setSubmitted(null); focusTitle() }} onReset={reset} /> : <>
         <section className="assessment-hero"><h1>{assessmentContent.hero.title} <span>{assessmentContent.hero.titleSuffix}</span></h1><p>{assessmentContent.hero.subtitle}</p></section>
         <AssessmentForm key={formVersion} input={input} onChange={(key, value) => setInput(previous => ({ ...previous, [key]: value }))} onComplete={answers => {
           setInput(answers); setSubmitted({ ...answers }); focusTitle(); window.scrollTo({ top: 0, behavior: 'smooth' })

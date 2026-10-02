@@ -123,3 +123,21 @@ input[type="number"],.assessment-step-count,.assessment-progress-label>span,
   font-variant-numeric:tabular-nums;
 }
 button,input,select,textarea { font-family:var(--brand-font); }
+
+/* Only mounted in Admin Mode; never hidden customer-facing technical content. */
+.admin-tools { margin:16px auto 0; padding:24px; max-width:1080px; background:var(--brand-soft-bg); border:1px solid var(--brand-border); border-radius:var(--brand-radius); }
+.admin-tools-heading { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.admin-tools button { background:var(--brand-bg); min-height:44px; }
+.admin-tools button:disabled { opacity:.6; cursor:wait; }
+.admin-status { margin-top:16px; font-size:13px; line-height:1.8; color:var(--brand-primary); }
+.admin-status[role=alert] { color:var(--brand-error); }
+.admin-metadata { display:flex; flex-wrap:wrap; gap:16px 32px; margin:16px 0; font-size:12px; line-height:1.8; }
+.admin-metadata dt { color:var(--brand-primary); font-size:11px; }
+.admin-metadata dd { margin:0; font-variant-numeric:tabular-nums; }
+.admin-sheets { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:1fr 1fr; gap:12px 24px; }
+.admin-sheets li { display:flex; flex-wrap:wrap; justify-content:space-between; gap:4px 12px; padding-top:10px; border-top:1px solid var(--brand-border); font-size:11px; line-height:1.8; }
+.admin-sheets li small { width:100%; overflow-wrap:anywhere; color:var(--brand-error); }
+.admin-hint,.admin-error { font-size:11px; line-height:1.9; color:var(--brand-primary); margin-top:12px; }
+.admin-error summary { cursor:pointer; padding:8px 0; }
+.admin-error p { overflow-wrap:anywhere; }
+@media(max-width:600px) { .admin-tools { padding:18px; } .admin-sheets { grid-template-columns:1fr; } .admin-tools-heading { flex-wrap:wrap; } }

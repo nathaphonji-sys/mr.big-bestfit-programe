@@ -30,14 +30,14 @@ npm run build
 npm run preview
 ```
 
-- `npm test`: ตรวจ 119 test cases รวมทุก 75 ชุดหมอน + 200 ชุดที่นอน ขอบช่วงน้ำหนัก/ส่วนสูง clinical priority และ Body Pillow dedupe, CSV สถานะสินค้า Special Mattress การโหลดซ้ำจาก Sheets, timeout, ข้อมูลผิดรูปแบบ และ fallback
+- `npm test`: ตรวจ 137 test cases รวมทุก 75 ชุดหมอน + 200 ชุดที่นอน ขอบช่วงน้ำหนัก/ส่วนสูง clinical priority และ Body Pillow dedupe, CSV สถานะสินค้า Special Mattress การโหลดซ้ำจาก Sheets, timeout, ข้อมูลผิดรูปแบบ และ fallback
 - `npm run build`: ตรวจ TypeScript แล้วสร้างเว็บใน `dist/`
 - `npm run preview`: เปิด build ที่ http://localhost:4173
 - `scripts/browser-check.mjs`: smoke test สำหรับเครื่องที่มี Google Chrome; เปิด `npm run dev` ในอีก Terminal แล้วใช้ `node scripts/browser-check.mjs` (ดูสถานะตรวจจริงใน `QA.md`)
 
 ## นำขึ้น Vercel
 
-โปรเจกต์นี้เตรียมให้ deploy ได้ แต่ยังไม่ได้เผยแพร่ขึ้นบัญชี Vercel และยังไม่มีลิงก์สาธารณะ
+โปรเจกต์นี้เชื่อมกับ repository `nathaphonji-sys/mr.big-bestfit-programe` และใช้ Production URL `https://mr-big-bestfit-programe.vercel.app` การแก้โค้ดในเครื่องจะยังไม่เปลี่ยน production จนกว่าจะอัปเดต repository และ Vercel deploy สำเร็จ
 
 ### วิธีผ่าน GitHub และหน้าเว็บ Vercel สำหรับผู้เริ่มต้น
 
@@ -77,7 +77,7 @@ npx vercel
 npx vercel --prod
 ```
 
-ไฟล์ `vercel.json` ระบุ Vite และ output ให้แล้ว หน้าเดียวนี้ไม่ต้องมี SPA rewrite มี Vercel Function ที่ `api/sheets.ts` สำหรับอ่าน CSV จาก Google โดยไม่ต้องตั้ง secret ต้อง deploy ทั้งโปรเจกต์พร้อม `api/` ไม่ใช่อัปโหลดเฉพาะ `dist/` ไป static hosting
+ไฟล์ `vercel.json` ระบุ Vite และ output ให้แล้ว มี SPA rewrite เฉพาะ `/admin` และ `/admin/` มี Vercel Function ที่ `api/sheets.ts` สำหรับอ่าน CSV จาก Google โดยไม่ต้องตั้ง secret ต้อง deploy ทั้งโปรเจกต์พร้อม `api/` ไม่ใช่อัปโหลดเฉพาะ `dist/` ไป static hosting
 
 ## ฝังใน Shopify ด้วย iframe
 
@@ -125,7 +125,7 @@ iframe เลื่อนภายในได้เมื่อผลลัพ�
 | กฎหมอน | [bestfit_pillow_base_rules_01-2](https://docs.google.com/spreadsheets/d/1n84XMPRemPu_tJwIZVFQaZvElpoR1PaL9Zbgj4xBDLg/edit) |
 | กฎที่นอนและท็อปเปอร์ | [bestfit_mattress_base_rules_01-2](https://docs.google.com/spreadsheets/d/1gcIiug9SFUhewf9n07ZXjHX1xslfOyw6Oy5a3PjFeFk/edit) |
 
-บันทึกใน Sheets แล้วกด **อัปเดต Google Sheets** ด้านบนแอป **ไม่ต้อง build/deploy ใหม่เมื่อแก้เฉพาะเซลล์** ปุ่มนี้กดได้ทุกหน้ารวมถึงหน้าผลลัพธ์ โดยไม่ต้องกรอกฟอร์มให้ครบ คำตอบและขั้นตอนปัจจุบันยังอยู่ หากอยู่หน้าผลลัพธ์จะคำนวณใหม่ด้วยข้อมูลล่าสุด ไม่มีการ polling และ Google อาจใช้เวลาสั้น ๆ ก่อนส่งเซลล์ที่เพิ่งแก้ผ่าน CSV export
+บันทึกใน Sheets แล้วเปิด `/admin` และกด **อัปเดตข้อมูลล่าสุด** **ไม่ต้อง build/deploy ใหม่เมื่อแก้เฉพาะเซลล์** ปุ่มนี้กดได้ทุกหน้ารวมถึงหน้าผลลัพธ์ โดยไม่ต้องกรอกฟอร์มให้ครบ คำตอบและขั้นตอนปัจจุบันยังอยู่ หากอยู่หน้าผลลัพธ์จะคำนวณใหม่ด้วยข้อมูลล่าสุด ไม่มีการ polling และ Google อาจใช้เวลาสั้น ๆ ก่อนส่งเซลล์ที่เพิ่งแก้ผ่าน CSV export
 
 - แถวแรกต้องเป็นชื่อคอลัมน์เดิม เช่น `product_key`, `rule_key`, `active` อย่าเพิ่มหัวเรื่องเหนือแถว header
 - คงรหัสสินค้า/กฎให้ไม่ซ้ำ ไม่มี header ว่างหรือซ้ำ ชื่อคอลัมน์และค่าแต่ละช่องจะถูก trim
@@ -144,7 +144,7 @@ iframe เลื่อนภายในได้เมื่อผลลัพ�
 
 `dedupeRecommendations()` รวม Body Pillow ทุกขนาดไว้ในกลุ่มเดียว ใช้ positioning_pillow จาก base ก่อน special_positioning_pillow แล้วจึงใช้ clinic add-on ถ้า base ไม่มี Body Pillow เหตุผลของ clinic ยังคงอยู่ในการ์ดที่เลือก ไม่ลบสินค้าเสริมอื่น และไม่เปลี่ยนวิธี lookup product_master เดิม
 
-ระหว่าง `npm run dev` เปิด “ข้อมูลอ้างอิงการคำนวณ” ที่ท้ายผลลัพธ์เพื่อดู matched pillow rule, matched clinic rules, promote_product, final primary/base/positioning/add-ons รายละเอียด debug นี้ซ่อนอยู่ใน collapsible section และไม่รวมใน production build
+ระหว่าง `npm run dev` เปิด `/admin` แล้วเปิด “ข้อมูลอ้างอิงการคำนวณ” ที่ท้ายผลลัพธ์เพื่อดู matched pillow rule, matched clinic rules, promote_product, final primary/base/positioning/add-ons รายละเอียด debug นี้ซ่อนอยู่ใน collapsible section และไม่รวมใน production build
 
 ## การแสดง Special Mattress
 
@@ -173,11 +173,11 @@ ID คือส่วนระหว่าง `/d/` กับ `/edit` ในล�
 
 `src/services/googleSheets.ts` มี `loadProductMaster()`, `loadClinicAdjustmentRules()`, `loadPillowRules()`, `loadMattressRules()` และ `loadBestFitData()` ใช้ header เป็น key และคงชื่อคอลัมน์สำหรับ logic เดิม
 
-หากอ่านไม่สำเร็จ ไฟล์ว่าง header ผิด รหัสซ้ำ หรือหมดเวลารอ (API 10 วินาที / frontend 15 วินาที) แอปใช้ **ข้อมูลสำรองทั้ง 4 ตารางพร้อมกัน** เพื่อไม่ผสมกฎใหม่กับสินค้าเก่า พร้อมข้อความ “อัปเดต Google Sheets ไม่สำเร็จ ขณะนี้ใช้ข้อมูลสำรองเดิม กรุณาลองอีกครั้ง” และปุ่มอัปเดตเพื่อทดลองโหลดใหม่ โดยไม่รีเฟรชหน้าและไม่ล้างคำตอบ
+หากอ่านไม่สำเร็จ ไฟล์ว่าง header ผิด รหัสซ้ำ หรือหมดเวลารอ (API 10 วินาที / frontend 15 วินาที) แอปใช้ **ข้อมูลสำรองทั้ง 4 ตารางพร้อมกัน** เพื่อไม่ผสมกฎใหม่กับสินค้าเก่า พร้อมข้อความ “โหลด Google Sheets ไม่สำเร็จ ขณะนี้ใช้ข้อมูลสำรอง” และปุ่มอัปเดตเฉพาะใน Admin Mode เพื่อทดลองโหลดใหม่ โดยไม่รีเฟรชหน้าและไม่ล้างคำตอบ
 
 ข้อมูลสำรองเป็น **CSV เดิมใน `data/`** เนื่องจากโปรเจกต์เดิมไม่ได้ใช้ JSON เก็บ snapshot วันที่ 29 กันยายน 2026 ไว้เหมือนเดิม หากต้องการอัปเดตสำรอง ให้ export Sheets เป็น CSV UTF-8 แทนไฟล์ชื่อเดิมใน `data/` แล้วทดสอบ/build/deploy ใหม่
 
-เมื่อเปิดครั้งแรกสำเร็จ แอปแสดง “โหลดข้อมูลจาก Google Sheets แล้ว” เมื่อกดอัปเดตจะแสดง “กำลังอัปเดตข้อมูล...” แล้วเปลี่ยนเป็น “อัปเดตข้อมูลล่าสุดแล้ว” พร้อมเวลาโหลดใหม่ในข้อมูลอ้างอิงผลลัพธ์ ปุ่มจะพักเฉพาะระหว่างมีคำขอโหลดอยู่เพื่อไม่ส่งซ้ำ โดยไม่ขึ้นกับ validation ของฟอร์ม
+เมื่อเปิดครั้งแรกสำเร็จ Admin Mode แสดง “โหลด Google Sheets สำเร็จ” เมื่อกดอัปเดตจะแสดง “กำลังอัปเดตข้อมูล...” แล้วเปลี่ยนเป็น “อัปเดตข้อมูลล่าสุดแล้ว” พร้อมเวลาโหลดใหม่ในข้อมูลอ้างอิงผลลัพธ์ ปุ่มจะพักเฉพาะระหว่างมีคำขอโหลดอยู่เพื่อไม่ส่งซ้ำ โดยไม่ขึ้นกับ validation ของฟอร์ม
 
 ## โครงสร้างไฟล์ที่เกี่ยวข้อง
 
@@ -203,7 +203,7 @@ ID คือส่วนระหว่าง `/d/` กับ `/edit` ในล�
 2. เปิด Share ของ **ไฟล์รูปแต่ละไฟล์** แล้วตั้ง General access เป็น **Anyone with the link → Viewer**
 3. เลือก **Copy link** ของไฟล์รูป (ไม่ใช่ลิงก์โฟลเดอร์)
 4. วาง URL ตรง ๆ ในคอลัมน์ `image_url` ของสินค้านั้นใน [product_master_01-2](https://docs.google.com/spreadsheets/d/1IJYNkYaLVhTDQAYzqodQcz-LS3Bow1lJ2FlR_U3x7p0/edit) ไม่ใช้ Markdown เช่น `[รูป](URL)` หรือสูตร HYPERLINK ที่แสดงเฉพาะข้อความ
-5. บันทึกและ **refresh แอป** เมื่อขึ้น “โหลดข้อมูลจาก Google Sheets แล้ว” แอปจะอ่าน URL ล่าสุด ไม่ต้อง deploy ใหม่
+5. บันทึกและ **refresh แอป** ตรวจ source เป็น Google Sheets ใน `/admin` เพื่อยืนยันว่าแอปอ่าน URL ล่าสุด ไม่ต้อง deploy ใหม่
 
 รองรับ `https://drive.google.com/file/d/FILE_ID/view?usp=sharing`, `https://drive.google.com/open?id=FILE_ID`, `https://drive.google.com/uc?id=FILE_ID` และ direct image URL ทั่วไป แปลงลิงก์ Drive เป็น `https://drive.google.com/thumbnail?id=FILE_ID&sz=w1000` ใน `src/utils/productImage.ts` ด้วย `getDisplayImageUrl()`
 
@@ -276,7 +276,7 @@ ID คือส่วนระหว่าง `/d/` กับ `/edit` ในล�
 
 **อะไรต้อง deploy ใหม่:** การแก้ไฟล์ config ทั้ง 3 ไฟล์ และการเปลี่ยนไฟล์รูป local ต้องบันทึกไฟล์ → ตรวจด้วย `npm run dev` → รัน `npm run build` → อัปเดต repository/นำขึ้น Vercel อีกครั้ง เว็บจริงจึงจะเปลี่ยนตาม การแก้ path เป็นลิงก์ Drive ใน config ก็ต้อง deploy ใหม่เช่นกัน
 
-**อะไรไม่ต้อง deploy ใหม่:** รูปสินค้าและรายละเอียดสินค้าในผลลัพธ์ที่แก้ใน Google Sheets `product_master` รวมถึงกฎใน Sheets ทั้ง 4 ไฟล์ ใช้ปุ่ม **อัปเดต Google Sheets** เพื่อโหลดใหม่ได้เลย ส่วนข้อความคำถามและรูป assessment ไม่ได้อ่านจาก Sheets หากแทนภาพในไฟล์ Drive เดิมโดย URL ไม่เปลี่ยน อาจเพียง refresh เพื่อโหลดภาพใหม่ แต่ cache ของ Google อาจทำให้ภาพเดิมยังปรากฏชั่วคราว
+**อะไรไม่ต้อง deploy ใหม่:** รูปสินค้าและรายละเอียดสินค้าในผลลัพธ์ที่แก้ใน Google Sheets `product_master` รวมถึงกฎใน Sheets ทั้ง 4 ไฟล์ ใช้ปุ่ม **อัปเดตข้อมูลล่าสุด** ใน `/admin` เพื่อโหลดใหม่ได้เลย ส่วนข้อความคำถามและรูป assessment ไม่ได้อ่านจาก Sheets หากแทนภาพในไฟล์ Drive เดิมโดย URL ไม่เปลี่ยน อาจเพียง refresh เพื่อโหลดภาพใหม่ แต่ cache ของ Google อาจทำให้ภาพเดิมยังปรากฏชั่วคราว
 
 ไฟล์ `src/options.ts` เป็นตัวเชื่อมให้ engine และ result ใช้โครงสร้างเดิม ไม่ต้องแก้ไฟล์นี้เพื่อเปลี่ยน label และไม่ต้องแก้ `engine.ts` หรือ `Results.tsx` เมื่อเปลี่ยนข้อความแบบประเมิน
 
@@ -312,3 +312,41 @@ ID คือส่วนระหว่าง `/d/` กับ `/edit` ในล�
 `getAssessmentImageUrl()` ใน `src/utils/assessmentImage.ts` รองรับ local path และแปลง Drive link เป็น thumbnail ขนาด w1000 โดยไม่ต้องแก้การคำนวณ หากไม่มีรูปหรือโหลดไม่ได้ จะแสดง placeholder; หาก placeholder โหลดไม่ได้ด้วย จะใช้ไอคอนสำรองในกรอบเดิม
 
 การตั้งค่ารูป Assessment อยู่ใน config นี้ ไม่ได้อ่านจาก Google Sheets ในเวอร์ชันนี้ หากเพิ่ม sheet mapping ในอนาคต จึงค่อยนำ field `image_url` มาใช้กับ helper เดิมได้ ส่วน `product_master.image_url` ยังใช้สำหรับรูปสินค้าในหน้าผลลัพธ์ตามเดิม
+
+
+## User Mode และ Admin Mode
+
+- **User Mode:** ใช้ URL ปกติ `/` สำหรับลูกค้าและฝัง Shopify ระบบโหลดข้อมูล Google Sheets เมื่อเปิดเว็บ แต่ไม่แสดงปุ่มอัปเดต สถานะ Sheets/CSV หรือข้อมูล debug ถ้าใช้ข้อมูลสำรองได้ จะยังแสดงแบบประเมินและผลลัพธ์ตามปกติ
+- **Admin Mode:** เปิด `/admin` หรือ `/?admin=true` เพื่อแสดง Admin tools ใต้ header กด **อัปเดตข้อมูลล่าสุด** ได้ทุกหน้าของฟอร์มและหน้าผลลัพธ์ โดยไม่ต้องกรอกฟอร์มให้ครบ
+- Admin แสดง Data source, Last loaded (เวลาไทย), จำนวนแถวและสถานะของทั้ง 4 sheet พร้อมข้อผิดพลาด หากโหลดไม่ได้จะแสดง **โหลด Google Sheets ไม่สำเร็จ ขณะนี้ใช้ข้อมูลสำรอง** และ Data source เป็น **Fallback CSV**
+- เวลาที่แสดงคือเวลาที่รอบโหลดเสร็จ ไม่ใช่เวลาแก้ไขใน Google Sheets หากเป็น fallback จะเป็นเวลาที่นำชุดสำรองมาใช้ เมื่อมี sheet ใดล้มเหลว แอปจะใช้ CSV สำรอง **ทั้งชุด** เพื่อไม่ผสมกฎใหม่กับสินค้าเก่า
+- เมื่อ reload ขณะอยู่หน้าผลลัพธ์ แอปจะคำนวณใหม่จากคำตอบเดิมและข้อมูลที่เพิ่งโหลด เมื่อโหลดสำเร็จครั้งต่อไป สถานะ fallback จะหายเอง
+- `/admin` เป็นการแยกการแสดงผล **ไม่ใช่ระบบล็อกอิน** ผู้ที่มี URL สามารถเปิดได้ ปุ่มนี้อ่านข้อมูลอย่างเดียว ไม่ได้เขียนกลับ Sheets
+- `vercel.json` rewrite เฉพาะ `/admin` และ `/admin/` ไปหน้าเว็บหลัก ไม่ครอบ `/api/sheets` หรือไฟล์ภาพ/ฟอนต์
+
+## การแก้ข้อมูลใน Google Sheets หลัง deploy
+
+1. แก้ข้อมูลใน Google Sheets ทั้ง 4 ไฟล์เดิม แล้วรอให้ Sheets บันทึกเสร็จ
+2. เปิด `https://mr-big-bestfit-programe.vercel.app/admin`
+3. กด **อัปเดตข้อมูลล่าสุด**
+4. ตรวจว่า Data source เป็น **Google Sheets**, ทั้ง 4 sheet โหลดสำเร็จ และเวลาล่าสุดเปลี่ยน หากเป็น Fallback CSV ให้ดู sheet ที่ล้มเหลวและรายละเอียดข้อผิดพลาด
+5. ถ้ารูป Google Drive ไม่อัปเดตแม้ค่า image_url ล่าสุดแล้ว อาจเป็น cache ของ Drive ให้อัปโหลดรูปเป็นไฟล์ใหม่ แชร์แบบ Anyone with the link → Viewer แล้วเปลี่ยนลิงก์ใน `product_master.image_url`
+6. ลูกค้าที่เปิดหน้าใหม่จะโหลดข้อมูลใหม่ ส่วนหน้าที่เปิดค้างอยู่จะใช้ข้อมูลในหน้านั้นจน refresh การกดอัปเดตใน Admin ไม่ได้ส่งคำสั่งไป reload เบราว์เซอร์ของลูกค้ารายอื่น
+
+### การป้องกัน cache และตรวจ API
+
+Frontend ใช้ `ts` พร้อม `cache: 'no-store'` ทุกครั้งที่โหลด `/api/sheets` ส่วน API เพิ่ม `ts` ให้ URL CSV export ของ Google และใช้ no-store เช่นกัน โดยไม่เปลี่ยน Spreadsheet ID หรือการอ่าน first tab
+
+API ส่ง `Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate`, `Pragma: no-cache`, `Expires: 0`, `CDN-Cache-Control: no-store` และ `Vercel-CDN-Cache-Control: no-store` ทั้งกรณีสำเร็จและ error มี `X-Bestfit-Fetched-At` เมื่อได้ CSV สำเร็จ
+
+หลัง deploy เปิด `/api/sheets?sheet=products` ควรได้ HTTP 200 พร้อม `Content-Type: text/csv` และข้อมูลล่าสุด ต้องไม่ใช่ HTML ของหน้าเว็บ ถ้าได้ `FUNCTION_INVOCATION_FAILED` ให้ดู Runtime Logs ของ Vercel เพราะแปลว่า function ล้มก่อนส่งข้อมูล ไม่ใช่แค่ cache
+
+API ใช้ import `../src/config/googleSheets.js` โดยระบุ extension เพื่อรองรับ Node ESM ที่ Vercel คอมไพล์จาก TypeScript มี regression test รัน API ที่คอมไพล์แล้วด้วย Node โดยไม่ผ่าน Vite เพื่อป้องกันกรณี local ทำงานแต่ production import ไม่สำเร็จ
+
+### ตรวจหลัง deploy
+
+- `/`: ไม่มี Admin tools, ปุ่มอัปเดต หรือข้อความ technical แม้ใช้ fallback
+- `/admin` และ `/?admin=true`: มี Admin tools และโหลดได้โดยเปิด URL โดยตรง
+- กดอัปเดตแล้วได้ Google Sheets พร้อมเวลารอบใหม่และสถานะสำเร็จครบ 4 sheet
+- `/api/sheets?sheet=products`: ส่ง CSV จริงและ header no-store โดยไม่ถูก rewrite ไปหน้าเว็บ
+- กรอกแบบประเมิน 3 หน้า และตรวจผลเดิม รวมทั้ง Primary/Special Mattress และ Topper
